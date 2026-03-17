@@ -18,13 +18,11 @@ RUN pip install --no-cache-dir \
     numpy \
     scikit-learn \
     matplotlib \
-    gunicorn
-
-# Run migrations
-RUN python manage.py migrate --noinput || true
+    gunicorn \
+    whitenoise
 
 # Expose port
 EXPOSE 8000
 
-# Start the application
+# Start the application with Gunicorn
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "CropRecomendation.wsgi:application"]
